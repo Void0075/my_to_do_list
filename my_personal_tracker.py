@@ -67,7 +67,7 @@ def get_progression():
 		else:
 			return progression
 
-#Valdiating, type and precensce check
+#Valdiating, type and precensce check the choices
 def valid_choice(prompt):
 	while True:
 		try:
@@ -104,7 +104,7 @@ def add_task():
 		AddingTask(task_name, priority, progress, deadline)
 		print("\n")
 
-
+ 
 #Getting The Tasks and Viewing Them.
 def get_dict():
 	print("Demo View")
@@ -116,7 +116,8 @@ def get_dict():
 	print("---------------------")
 	print("\n\n")
 	print("The Real Tasks: ")
-	for key, value in dict_task.items():
+	sorted_dict = dict(sorted(dict_task.items(), key=lambda item: item[1]))
+	for key, value in sorted_dict.items():
 				if isinstance(value, list): #If the value is a list type then the condition is active.
 					print("---------------------")
 					print(f"Task Details In {key}:")
@@ -125,22 +126,39 @@ def get_dict():
 					print("---------------------")
 					print("\n")
 
+#Changing Progression
 def change_progression():
 	task_name = get_task_name("Enter the name of the task you want to change the progression of: ")
 	if task_name in dict_task:
 		for key, value in dict_task.items():
 			if key == task_name:
 				for item in value:
-					del value[1]
-					new_progression =  get_progression()
+					del value[1] #Delete old progression
+					new_progression =  get_progression() #Get new one and insert it back
 					value.insert(1, new_progression)
 					break
 	else:
 		print(f"Error: The '{task_name}' is not in the Data Base. Ensure you spelled it correct ")
+
+#Change Priority
+def change_priortiy():
+	task_name = get_task_name("Enter the name of the task you want to change the priority of: ")
+	if task_name in dict_task:
+		for key, value in dict_task.items():
+			if key == task_name:
+				for item in value:
+					del value[0] #Delte old priority
+					new_priority =  get_priotity() #Get new priority and insert it into the old one
+					value.insert(0, new_priority)
+					break
+	else:
+		print(f"Error: The '{task_name}' is not in the Data Base. Ensure you spelled it correct ")
+
+#Deleting Task
 def delete_key():
 	task_name = get_task_name("Enter the name of the task you want to delete: ")
 	if task_name in dict_task:
-		del dict_task[task_name]
+		del dict_task[task_name] #Compelted remove the key
 		print(f"Task named: {task_name}, has been delted")
 	else:
 		print(f"Error: The '{task_name}' is not in the Data Base. Ensure you spelled it correct ")
@@ -152,8 +170,9 @@ def main():
 		print("1. Add Task")
 		print("2. View Task")
 		print("3. Change Progression")
-		print("4. Delete Task")
-		print("5. Exit Program")
+		print("4. Change Priority")
+		print("5. Delete Task")
+		print("6. Exit Program")
 		print("\n")
 		print("--- Choice ---")
 		choice = valid_choice("Enter the number from 1 - 2 : ")
@@ -165,14 +184,15 @@ def main():
 		elif choice == 3:
 			change_progression()
 		elif choice == 4:
-			delete_key()
+			change_priortiy()
 		elif choice == 5:
+			delete_key()
+		elif choice == 6:
 			print("--- Exiting Program ---")
 			print("Goodbye, Comeback soon.")
 			break
 		else:
 			print("Error: Choice out of range, ensure its between 1 - 2")
-
 
 
 
