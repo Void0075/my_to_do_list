@@ -175,7 +175,7 @@ def main():
 		print("6. Exit Program")
 		print("\n")
 		print("--- Choice ---")
-		choice = valid_choice("Enter the number from 1 - 2 : ")
+		choice = valid_choice("Enter the number from 1 - 6: ")
 		print("\n")
 		if choice == 1:
 			add_task()
@@ -192,7 +192,7 @@ def main():
 			print("Goodbye, Comeback soon.")
 			break
 		else:
-			print("Error: Choice out of range, ensure its between 1 - 2")
+			print("Error: Choice out of range, ensure its between 1 - 6")
 
 
 
